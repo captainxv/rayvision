@@ -1,0 +1,135 @@
+/* Ensure the body and HTML take up full height */
+html, body {
+    position: static;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Inter, sans-serif;
+  }
+  
+  /* Style the map container */
+  #map {
+    width: 100%;
+    height: 100%; /* Full viewport height */
+    border: 2px solid #333;
+  }
+  /* Modal container (hidden by default) */
+  #modal {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Floating modal container */
+  .floating-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 250px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 1; /* Ensure the modal is above the map */
+    padding: 15px;
+  }
+  
+  /* Modal content box */
+  .modal-content {
+    background: none; /* Remove background from content */
+    padding: 0;
+    border-radius: 0;
+    width: 100%;
+    max-width: 100px;
+    text-align: left;
+    position: relative;
+  }
+  
+  /* Close button */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: black; /* White color for close button */
+  }
+  
+  #controls { 
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 1;
+  }
+
+  #home-button {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f1f1f1;
+    color: blue;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid #F4F4F4;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 2; /* Ensure the button is above the map */
+  }
+  
+  .home-button:active {
+    background-color: #1d7ae0;
+  }
+
+  /* Floating menu container */
+  .floating-menu {
+    display: block; /* Always visible */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 100px; /* Small box width */
+    height: 100px; /* Small box height */
+    background-color: white; /* White background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 2; /* Ensure the menu is above the map */
+    padding: 15px;
+    color: black; /* Black text color */
+    transition: width 0.3s, height 0.3s; /* Smooth transition */
+  }
+  
+  /* Expanded floating menu */
+  .floating-menu.expanded {
+    width: 250px; /* Expanded width */
+    height: auto; /* Adjust height to content */
+  }
+  
+  /* Menu content box */
+  .menu-content {
+    background: none; /* Remove background from content */
+    padding: 0;
+    border-radius: 0;
+    width: 100%;
+    max-width: none;
+    text-align: center;
+    position: relative;
+  }
+
+  /* Image in small box */
+  .floating-menu img {
+    width: 100%; /* Fit image within the small box */
+    height: auto;
+  }
+
+

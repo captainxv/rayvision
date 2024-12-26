@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Ray</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link CSS file -->
+    <!-- Mapbox CSS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.css" rel="stylesheet">
+    <!-- Mapbox JavaScript -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.js"></script>
+    <!-- Mapbox Geocoder JavaScript -->
+  </head>
+
+  <body>
+  <!-- Controls: Filter and Toggle Buttons -->
+  <div id="controls">
+    <select id="category-filter">
+      <option value="Todos">Todos</option>
+      <option value="ECO">ECO</option>
+      <option value="PRO">PRO</option>
+      <option value="MOTO">MOTO</option>
+    </select>
+  </div>
+
+  <!-- Map container -->
+  <div id="map"></div>
+
+  <!-- Home Button -->
+  <button id="home-button">Casa</button>
+
+  <!-- Floating menu container -->
+  <div id="floating-menu" class="floating-menu">
+    <div class="menu-content">
+      <img id="menu-image" src="https://i.postimg.cc/sDx18PpM/Ray.png" alt="Menu Image" />
+      <h2 id="menu-title" style="display: none;">Title</h2>
+      <p id="menu-description" style="display: none;">Description</p>
+      <span class="close-button" style="display: none;">&times;</span>
+    </div>
+  </div>
+
+  <!-- Link JavaScript file -->
+  <script src="script.js"></script>
+  
+  </body>
+</html>
