@@ -1,0 +1,1748 @@
+/* Font face declaration at the top */
+@font-face {
+    font-family: 'VCR OSD Mono';
+    src: url('./fonts/VCR_OSD_MONO_1.001.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Theme variables */
+:root[data-theme="dark"] {
+    --background: #0B0B0B;
+    --text: #f4f6ff;
+    --text-rgb: 244, 246, 255;
+    --nav-bg: rgba(18, 18, 18, 0.8);
+    --search-bg: #0B0B0B;
+    --side-menu-bg: #0B0B0B;
+    --map-style: 'mapbox://styles/captainlogistics/cm56ostgm00m201s8ak8f6cdq';
+}
+
+:root[data-theme="light"] {
+    --background: #ffffff;
+    --text: #0B0B0B;
+    --text-rgb: 11, 11, 11;
+    --nav-bg: rgba(255, 255, 255, 0.8);
+    --search-bg: #F4F4F4;
+    --side-menu-bg: #F4F4F4;
+    --map-style: 'mapbox://styles/captainlogistics/cm5i65mpl002h01qo7i79dndo';
+}
+
+:root {
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --header-height: 80px;
+}
+
+body {
+    font-family: 'VCR OSD Mono', monospace;
+    line-height: 1.5;
+    text-transform: uppercase;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: fixed;
+    background: var(--background);
+    color: var(--text);
+    padding-top: var(--safe-area-inset-top);
+}
+
+/* Header styles */
+.site-header {
+    position: fixed;
+    top: var(--safe-area-inset-top);
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    z-index: 1500;
+    border-bottom: 1px solid rgba(var(--text-rgb), 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Burger Menu */
+.burger-menu {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 35px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+}
+
+.burger-line {
+    width: 24px;
+    height: 2px;
+    background-color: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Logo styles */
+.logo-container {
+    position: relative;
+    height: 40px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+}
+
+.logo-container img {
+    position: absolute;
+    height: 100%;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease;
+    object-fit: contain;
+}
+
+/* Default state for logos */
+.logo-light {
+    opacity: 0;
+}
+
+.logo-dark {
+    opacity: 1;
+}
+
+/* Theme-specific logo visibility */
+[data-theme="light"] .logo-light {
+    opacity: 1;
+}
+
+[data-theme="light"] .logo-dark {
+    opacity: 0;
+}
+
+[data-theme="dark"] .logo-light {
+    opacity: 0;
+}
+
+[data-theme="dark"] .logo-dark {
+    opacity: 1;
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+    justify-self: center;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.desktop-nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.desktop-nav a:hover,
+.desktop-nav a.active {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: 50px;
+    z-index: 1004;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    padding: 0.35rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    border: 1px solid rgba(var(--text-rgb), 0.1);
+}
+
+.mobile-nav-links {
+    display: flex;
+    gap: 1rem;
+    height: 100%;
+    padding: 0 0.5rem;
+}
+
+.mobile-nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+}
+
+.mobile-nav-links a svg {
+    stroke: var(--text);
+}
+
+.mobile-nav-links a.active {
+    color: var(--text);
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+.mobile-nav-links svg {
+    width: 20px;
+    height: 20px;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-links a:hover svg,
+.mobile-nav-links a.active svg {
+    transform: scale(1.1);
+}
+
+/* Side Menu */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 300px;
+    backdrop-filter: blur(5px);
+    background: var(--side-menu-bg);
+    z-index: 2000;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+}
+
+.side-menu.active {
+    transform: translateX(0);
+}
+
+.side-menu-header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid rgba(var(--text-rgb), 0.1);
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.side-menu-content {
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.side-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text);
+    text-decoration: none;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.side-menu-item svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text);
+}
+
+.side-menu-item:hover {
+    background: rgba(var(--text-rgb), 0.9);
+}
+
+.side-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1400;
+}
+
+.side-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Search styles */
+.search-wrapper {
+    position: fixed;
+    top: calc(5rem + 10px);
+    left: 20px;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#search-trigger {
+    background: var(--search-bg);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(var(--text-rgb), 0.1);
+    color: var(--text);
+    transition: all 0.3s ease;
+}
+
+#search-container {
+    width: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+#search-container.active {
+    width: 300px;
+    opacity: 1;
+}
+
+/* Content Layout */
+main {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.columns-container {
+    width: 100%;
+    height: calc(100% - 80px - 4rem);
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 4rem;
+    overflow: hidden;
+    background: var(--background);
+}
+
+.column {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.column.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.content-section {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Desktop adjustments */
+@media screen and (min-width: 769px) {
+    .site-header {
+        height: 5rem;
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .logo-container {
+        justify-self: end;
+        margin-left: auto;
+    }
+
+    .desktop-nav {
+        justify-self: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    .desktop-nav {
+        display: none;
+    }
+
+    .site-header {
+        padding: 0 16px;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        background-color: var(--background) !important;
+    }
+
+    .logo-container {
+        width: 90px; /* Slightly smaller on mobile */
+    }
+
+    .burger-menu {
+        position: absolute;
+        left: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    #search-trigger,
+    #search-container {
+        top: calc(80px + 10px);
+    }
+
+    .columns-container {
+        height: calc(100% - 80px - 70px);
+        bottom: 70px;
+    }
+
+    /* Ensure content doesn't get hidden behind nav */
+    .content-section {
+        padding-bottom: calc(2rem + 70px);
+    }
+
+    /* Adjust map height */
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+
+    .receipt-container {
+        width: 90%;
+        max-width: 300px;
+        bottom: 90px;
+    }
+
+    .loading-overlay {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .loading-text {
+        color: white;
+    }
+
+    /* Ensure map controls don't interfere */
+    .mapboxgl-control-container {
+        display: none !important;
+    }
+} 
+
+/* Ensure all text elements use the font */
+h1, h2, h3, h4, h5, h6, p, a, button, input {
+    font-family: 'VCR OSD Mono', monospace;
+} 
+
+/* Safe area adjustments */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .mobile-nav {
+        bottom: max(20px, calc(env(safe-area-inset-bottom) + 20px));
+    }
+} 
+
+/* 1. Map Layer (Bottom) */
+#map {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    z-index: 1;
+}
+
+canvas {
+    outline: none;
+}
+
+/* 2. JavaScript Interaction Layer */
+/* This will be handled in script.js */
+
+/* 3. Content Frame Layer */
+#search-trigger {
+    position: fixed;
+    z-index: 1002;
+}
+
+/* 4. Navigation Icons Layer (Top) */
+.mobile-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1004;
+} 
+
+/* Location Bar */
+.location-bar {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1003;
+    width: auto;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.location-bar button {
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--text-rgb), 0.1);
+    border-radius: 12px;
+    padding: 8px 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    font-family: 'VCR OSD Mono', monospace;
+    font-style: uppercase;
+    transition: all 0.3s ease;
+    outline: none;
+    white-space: nowrap;
+}
+
+.location-bar button:hover {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+.location-bar button svg {
+    width: 13px;
+    height: 13px;
+    stroke: var(--text);
+}
+
+/* Specific button styles */
+.home-button, .pickup-button {
+    min-width: 20px;
+}
+
+/* Location Grid Overlay */
+.location-overlay {
+    position: absolute;
+    bottom: calc(90% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 16px;
+    width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.location-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.location-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.location-option {
+    background: rgba(var(--text-rgb), 0.05);
+    border: 1px solid rgba(var(--text-rgb), 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-family: 'VCR OSD Mono', monospace;
+    transition: all 0.3s ease;
+}
+
+.location-option:hover {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+.location-option svg {
+    stroke: var(--text);
+}
+
+.custom-location {
+    border-style: dashed;
+} 
+
+/* Marker and Popup Styles */
+.marker {
+    width: 30px;
+    height: 30px;
+    background-color: var(--text);
+    border-radius: 50%;
+    border: 2px solid var(--background);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.user-popup {
+    padding: 12px;
+    font-family: 'VCR OSD Mono', monospace;
+}
+
+.user-popup h3 {
+    margin: 0 0 8px 0;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.user-popup p {
+    margin: 4px 0;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.request-button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: var(--nav-bg);
+    color: var(--text);
+    border: 1px solid rgba(var(--text-rgb), 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'VCR OSD Mono', monospace;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.request-button:hover {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+/* Mapbox popup overrides */
+.mapboxgl-popup-content {
+    background: var(--background) !important;
+    border-radius: 12px !important;
+    padding: 15px !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+}
+
+.mapboxgl-popup-close-button {
+    color: var(--text) !important;
+    font-size: 16px !important;
+    padding: 5px 10px !important;
+}
+
+.mapboxgl-popup-tip {
+    border-top-color: var(--background) !important;
+} 
+
+/* Add this to your existing CSS */
+.home-marker {
+    width: 30px;
+    height: 30px;
+    background-color: #ff4d4d;  /* Red color for home */
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    cursor: pointer;
+} 
+
+/* Action Navigation */
+.action-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    border: 1px solid rgba(var(--text-rgb), 0.1);
+    z-index: 1004;
+}
+
+.nav-button {
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover,
+.nav-button.active {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+.nav-button svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text);
+    transition: transform 0.3s ease;
+}
+
+.nav-button:hover svg {
+    transform: scale(1.1);
+}
+
+/* Transport Selector */
+.transport-selector {
+    position: fixed;
+    left: 20px;
+    top: 100px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1rem;
+    transform: translateX(-120%);
+    transition: transform 0.3s ease;
+    z-index: 1003;
+}
+
+.transport-selector.active {
+    transform: translateX(0);
+}
+
+.transport-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.transport-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.transport-option:hover {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+.transport-option svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text);
+}
+
+.transport-option span {
+    font-family: 'VCR OSD Mono', monospace;
+    font-size: 14px;
+} 
+
+/* Add these styles */
+.location-marker {
+    width: 30px;
+    height: 30px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    cursor: move;
+}
+
+/* Make sure popups appear above other elements */
+.mapboxgl-popup {
+    z-index: 1005;
+} 
+
+.receipt-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    width: 90%;
+    max-width: 400px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    z-index: 1001;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    display: none;
+}
+
+.receipt-container.active {
+    display: block;
+}
+
+.receipt-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.receipt-close-btn:hover {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+.receipt-close-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text);
+}
+
+.trip-receipt {
+    color: var(--text);
+}
+
+.receipt-details {
+    margin: 15px 0;
+}
+
+.receipt-details hr {
+    border: none;
+    border-top: 1px solid rgba(var(--text-rgb), 0.1);
+    margin: 10px 0;
+}
+
+.total {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.payment-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.payment-options button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(var(--text-rgb), 0.1);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-options button:hover {
+    background: rgba(var(--text-rgb), 0.2);
+}
+
+.home-marker {
+    width: 30px;
+    height: 30px;
+    background-color: #ffd700;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+} 
+
+/* Update loading overlay styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2001;
+    backdrop-filter: blur(5px);
+}
+
+.loading-overlay.active {
+    display: flex;
+}
+
+.loading-content {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--text);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+.loading-text {
+    color: var(--text);
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+} 
+
+/* Active nav button state */
+.nav-button.active {
+    background: rgba(var(--text-rgb), 0.2);
+} 
+
+/* Location Box Styles */
+.location-box {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    z-index: 1000;
+}
+
+.location-container {
+    margin-bottom: 15px;
+}
+
+.location-container:last-child {
+    margin-bottom: 0;
+}
+
+.location-container h3 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.location-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(var(--text-rgb), 0.1);
+    color: var(--text);
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.location-btn:hover {
+    background: rgba(var(--text-rgb), 0.2);
+}
+
+.location-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Places Modal Styles */
+.places-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.places-modal.active {
+    display: flex;
+}
+
+.places-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.place-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(var(--text-rgb), 0.1);
+    color: var(--text);
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.place-item:hover {
+    background: rgba(var(--text-rgb), 0.2);
+}
+
+.place-item svg {
+    width: 24px;
+    height: 24px;
+} 
+
+/* Update map container styles */
+.map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+/* MapboxGL specific styles */
+.mapboxgl-canvas-container {
+    width: 100%;
+    height: 100%;
+}
+
+.mapboxgl-canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Ensure proper layering */
+.mapboxgl-control-container {
+    z-index: 2;
+}
+
+/* Ensure other elements are properly layered */
+.location-box {
+    z-index: 1000;
+}
+
+.places-modal {
+    z-index: 2000;
+}
+
+.loading-overlay {
+    z-index: 3000;
+}
+
+.notification-toast {
+    z-index: 4000;
+} 
+
+/* Ensure map canvas takes full space */
+.mapboxgl-canvas-container {
+    width: 100%;
+    height: 100%;
+}
+
+.mapboxgl-canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Ensure other elements are above the map */
+.location-box,
+.places-modal,
+.loading-overlay,
+.notification-toast,
+.side-menu,
+.site-header {
+    position: relative;
+    z-index: 2;
+} 
+
+/* Fix z-index layering */
+.site-header {
+    position: fixed;
+    z-index: 10;
+}
+
+.location-box {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    z-index: 10;
+}
+
+.places-modal {
+    z-index: 20;
+}
+
+.loading-overlay {
+    z-index: 30;
+}
+
+.notification-toast {
+    z-index: 40;
+}
+
+/* Add receipt styles */
+.receipt-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    z-index: 1001;
+    display: none;
+}
+
+.receipt-container.active {
+    display: block;
+} 
+
+/* Update location boxes styles */
+.location-boxes {
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 12px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    visibility: visible;
+}
+
+.location-boxes.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.origin-box,
+.destination-box {
+    position: relative;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px; /* Match receipt width */
+    margin: 0 auto;
+    pointer-events: auto;
+}
+
+/* Position for origin box */
+.origin-box {
+    position: relative;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    pointer-events: auto;
+    z-index: 11;
+}
+
+/* Position for destination box */
+.destination-box {
+    position: relative;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.box-header h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.current-location-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.current-location-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Carousel styles */
+.locations-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* Hide scrollbar */
+.locations-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-container {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-content {
+    display: flex;
+    gap: 10px;
+    padding: 5px 0;
+}
+
+.location-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(var(--text-rgb), 0.1);
+    color: var(--text);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.location-btn:hover {
+    background: rgba(var(--text-rgb), 0.2);
+}
+
+.location-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Remove scroll buttons since we're using native scrolling */
+.scroll-btn {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .location-boxes {
+        bottom: 20px;
+        padding: 0 8px;
+    }
+
+    .origin-box,
+    .destination-box {
+        padding: 10px;
+        width: 95%;
+    }
+
+    .receipt-container {
+        bottom: 20px;
+        width: 95%;
+        max-width: 350px;
+    }
+}
+
+/* Bottom Action Buttons */
+.bottom-actions {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+    z-index: 1000;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.bottom-actions.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--text-rgb), 0.1);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    visibility: visible;
+}
+
+.action-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.action-btn:hover {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+/* Location Selection Popup */
+.location-popup {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(var(--text-rgb), 0.1);
+}
+
+.location-popup.active {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-row {
+    display: flex;
+    gap: 12px;
+}
+
+.popup-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background: rgba(var(--text-rgb), 0.05);
+    border: none;
+    border-radius: 12px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.popup-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.popup-btn:hover {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 2000;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 24px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+/* Additional CSS for hiding bottom actions */
+.hidden {
+    display: none !important;
+}
+
+/* Update Location Selection Popup styles */
+.location-popup {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(var(--text-rgb), 0.1);
+    width: 90%;
+    max-width: 320px;
+}
+
+.location-popup.active {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.popup-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    background: rgba(var(--text-rgb), 0.05);
+    border: none;
+    border-radius: 12px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.popup-btn svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.popup-btn:hover {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+.popup-btn span {
+    text-align: left;
+}
+
+/* Add text transform to make all text uppercase */
+.action-btn,
+.popup-btn span,
+.side-menu-item,
+.modal-content h3,
+.notification-toast,
+.loading-text,
+.settings-modal h3,
+.setting-info span,
+.setting-info p {
+    text-transform: uppercase;
+}
+
+/* Update existing button styles to ensure proper text transform */
+.bottom-actions .action-btn {
+    text-transform: uppercase;
+    font-size: 0.9rem; /* Slightly reduce font size for better appearance */
+    letter-spacing: 0.5px; /* Add slight letter spacing for readability */
+}
+
+.popup-btn {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+/* Add this to handle the status bar background */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .status-bar-fill {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: env(safe-area-inset-top);
+        background: var(--nav-bg);
+        backdrop-filter: blur(10px);
+        z-index: 1501;
+    }
+}
+
+/* My Places Modal */
+.my-places-modal .modal-content {
+    max-width: 400px;
+}
+
+.places-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.place-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background: rgba(var(--text-rgb), 0.05);
+    border: none;
+    border-radius: 12px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.place-item svg {
+    width: 32px;
+    height: 32px;
+}
+
+.place-item:hover {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+.add-place {
+    background: rgba(var(--text-rgb), 0.1);
+}
+
+.add-place:hover {
+    background: rgba(var(--text-rgb), 0.2);
+}
+
+/* Trip Cost Box */
+.trip-cost-box {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(var(--text-rgb), 0.1);
+    width: 90%;
+    max-width: 320px;
+}
+
+.trip-cost-box.active {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+.trip-cost-content h3 {
+    margin-bottom: 16px;
+}
+
+.trip-cost-details {
+    margin-bottom: 24px;
+}
+
+.trip-cost-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.trip-cost-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm-trip,
+.cancel-trip {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.confirm-trip {
+    background: #4caf50;
+    color: white;
+    border: none;
+}
+
+.cancel-trip {
+    background: none;
+    color: var(--text);
+    border: 1px solid rgba(var(--text-rgb), 0.2);
+}
+
+/* Yellow Glowing Line */
+.mapboxgl-user-location-dot {
+    background-color: #ffeb3b;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 235, 59, 0.8);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 235, 59, 0.8);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(255, 235, 59, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 235, 59, 0);
+    }
+}
+
+.action-btn.active {
+    box-shadow: 0 0 10px rgba(0, 102, 255, 0.8);
+}
+
+.origin-btn.active {
+    box-shadow: 0 0 10px rgba(0, 102, 255, 0.8);
+}
+
+.destination-btn.active {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}

@@ -1,0 +1,80 @@
+{
+    "auto": [
+        {
+            "id": 1,
+            "name": "Juan Pérez",
+            "location": {"lat": 20.5881, "lng": -100.3899},
+            "rating": 4.8,
+            "vehicle": "Toyota Camry 2020",
+            "status": "available"
+        },
+        {
+            "id": 2,
+            "name": "María González",
+            "location": {"lat": 20.5891, "lng": -100.3909},
+            "rating": 4.9,
+            "vehicle": "Honda Civic 2021",
+            "status": "available"
+        },
+        {
+            "id": 3,
+            "name": "Roberto Sánchez",
+            "location": {"lat": 20.5871, "lng": -100.3889},
+            "rating": 4.7,
+            "vehicle": "Volkswagen Jetta 2019",
+            "status": "available"
+        }
+    ],
+    "moto": [
+        {
+            "id": 4,
+            "name": "Carlos Rodríguez",
+            "location": {"lat": 20.5901, "lng": -100.3919},
+            "rating": 4.7,
+            "vehicle": "Yamaha MT-07",
+            "status": "available"
+        },
+        {
+            "id": 5,
+            "name": "Ana Martínez",
+            "location": {"lat": 20.5911, "lng": -100.3929},
+            "rating": 4.6,
+            "vehicle": "Honda CB500F",
+            "status": "available"
+        },
+        {
+            "id": 6,
+            "name": "Diego López",
+            "location": {"lat": 20.5861, "lng": -100.3879},
+            "rating": 4.8,
+            "vehicle": "Suzuki GSX-R750",
+            "status": "available"
+        }
+    ],
+    "bici": [
+        {
+            "id": 7,
+            "name": "Luis Torres",
+            "location": {"lat": 20.5921, "lng": -100.3939},
+            "rating": 4.5,
+            "vehicle": "Trek Domane",
+            "status": "available"
+        },
+        {
+            "id": 8,
+            "name": "Sofia Ramírez",
+            "location": {"lat": 20.5931, "lng": -100.3949},
+            "rating": 4.8,
+            "vehicle": "Specialized Allez",
+            "status": "available"
+        },
+        {
+            "id": 9,
+            "name": "Miguel Ángel",
+            "location": {"lat": 20.5851, "lng": -100.3869},
+            "rating": 4.9,
+            "vehicle": "Cannondale CAAD13",
+            "status": "available"
+        }
+    ]
+} 
